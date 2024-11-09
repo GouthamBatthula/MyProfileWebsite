@@ -1,0 +1,279 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - MyProfile.com</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Social Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6efafc, #dff7ff); /* Gradient background */
+            margin: 0;
+            padding: 0;
+            height: 100%; /* Ensure body takes full height */
+            display: flex;
+            flex-direction: column; /* Allow footer to be pushed to the bottom */
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #5b6a79;
+        }
+
+        .navbar-nav a {
+            color: white !important;
+        }
+
+        .navbar-nav a:hover {
+            color: #c6c9ff !important;
+        }
+
+        /* Profile container (fixed to the right) */
+        .profile-container {
+            position: fixed;
+            top: 50%;
+            right: 20px; /* Stick to the right */
+            transform: translateY(-50%); /* Center vertically */
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Profile picture */
+        .profile-container img {
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        /* Content that appears after scrolling */
+        .content {
+            display: block; /* Visible initially */
+            margin-left: 50px; /* Keep content on the left side */
+            margin-top: 150px; /* Space from top */
+            text-align: left;
+            color: #333; /* Darker text color for readability */
+            flex-grow: 1; /* Allow content to take the remaining space */
+        }
+
+        /* After scrolling, profile image shrinks */
+        .scroll-active img {
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            font-size: 2.5rem;
+            margin-top: 40px;
+            color: #504d2d;
+            font-weight: bold;
+        }
+
+        /* Section Content */
+        .section-content {
+            color: #495057;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* Name Styling */
+        .profile-name {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #2d3e50;
+            transition: color 0.3s ease;
+        }
+
+        .profile-name:hover {
+            color: #c6c9ff; /* Color change on hover */
+        }
+
+        /* Skills Section - Divided into Categories */
+        .skills-category {
+            background-color: rgba(255, 255, 255, 0.396); /* Translucent background */
+            padding: 30px 50px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            margin-top: 50px;
+        }
+
+        .skills-category h5 {
+            font-size: 1.25rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .skills-category ul {
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 1rem;
+            color: #495057;
+        }
+
+        .skills-category ul li {
+            margin-bottom: 5px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #2d3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            position: relative;
+        }
+
+        .footer a {
+            color: white;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #c6c9ff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MyProfile</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section (Fixed to the Right) -->
+    <div id="profile" class="profile-container">
+        <img src="{% static 'profile.jpg' %}" alt="Profile Picture"> <!-- Replace with your actual image path -->
+        <div class="profile-name">SAI GOUTHAM</div> <!-- Name displayed with profile picture -->
+    </div>
+
+    <!-- Content Section (Visible initially) -->
+    <div id="content" class="content">
+        <div>
+            <h2 class="section-heading">Hi, I'm</h2> <!-- Example job title -->
+            <p class="profile-name">SAI GOUTHAM BATTHULA</p>
+            <p class="section-content">I am currently pursuing a degree in AI and Data Science at KLH University. <br>I am passionate about leveraging advanced technologies to solve real-world problems<br> and am continuously honing my skills in areas like data analysis, machine learning, and AI-driven solutions.</p>
+        </div>
+
+        <!-- Skills Section -->
+        <div id="skills" class="skills-category">
+            <h3 class="section-heading">Skills</h3>
+
+            <!-- Skill Categories -->
+            <div class="row">
+                <!-- Category 1: Programming Languages -->
+                <div class="col-md-4">
+                    <h5>Programming Languages</h5>
+                    <ul>
+                        <li>Python</li>
+                        <li>Java</li>
+                        <li>C</li>
+                    </ul>
+                </div>
+
+                <!-- Category 2: Web Development -->
+                <div class="col-md-4">
+                    <h5>Web Development</h5>
+                    <ul>
+                        <li>HTML & CSS</li>
+                        <li>Bootstrap</li>
+                        <li>Django</li>
+                    </ul>
+                </div>
+
+                <!-- Category 3: Tools & Libraries -->
+                <div class="col-md-4">
+                    <h5>Tools & Libraries</h5>
+                    <ul>
+                        <li>Git & GitHub</li>
+                        <li>Jupyter Notebooks</li>
+                        <li>TensorFlow</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 class="section-heading">Education</h3>
+            <p class="section-content">High school 100%<br>Intermediate 98%<br>Engineering b.Tech(AI & Data Science) 90.5%</p>
+            
+        </div>
+
+        <!-- Achievements Section -->
+        <div>
+            <h3 class="section-heading">Achievements</h3>
+            <p class="section-content">Participant of National Technical event Avinya<br>Built an own ANDROID Application</p>
+            
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <li>© Copyright 2024 by SAI GOUTHAM BATTHULA. All Rights Reserved.<br> </li>
+        <p></p>
+        <a href="https://www.instagram.com/gone_mad_goutham/" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://github.com/GouthamBatthula" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/gowtham-batthula-745462290/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+    </div>
+
+    <!-- JavaScript to handle the scroll effect -->
+    <script>
+        window.addEventListener('scroll', function() {
+            var profile = document.getElementById('profile');
+            var content = document.getElementById('content');
+
+            // Check if scroll position is greater than 100px
+            if (window.scrollY > 100) {
+                profile.classList.add('scroll-active'); // Shrink profile image
+                content.style.marginLeft = '70px'; // Move content to the right
+            } else {
+                profile.classList.remove('scroll-active'); // Reset profile image
+                content.style.marginLeft = '50px'; // Reset content margin
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
